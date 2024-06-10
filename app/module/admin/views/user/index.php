@@ -21,7 +21,7 @@ Session::deleteSession("message");
 $strMess  = '';
 if (!empty($message)) {
 
-    $strMess .= '<dl id="system-message errors-message">
+    $strMess .= '<dl id="system-message">
                     <dt class="' . $message['class'] . '">' . ucfirst($message['class']) . '</dt>
                     <dd class="' . $message['class'] . ' message">
                         <ul>
@@ -45,7 +45,10 @@ if (!empty($message)) {
 </div>
 
 <?php include_once "submenu/index.php" ?>
-<div id="system-message-container group_errors">
+<div id="dialog-confirm" title="Thông báo" style="display: none">
+    <p> Bạn có chắc muốn xóa không</p>
+</div>
+<div id="system-message-container">
     <?= $strMess ?>
 </div>
 <!-- CONTENT -->
@@ -81,7 +84,7 @@ if (!empty($message)) {
                         <th class="title">
                             <a href="#" onclick="javascript:sortList('name', 'desc')">
                                 <span>UserName</span>
-                                <img width="10px" height="10px" scr="/BookStore/Public/Template/admin/main/images/admin/sort_asc.png" alt="">
+                                <img width="10px" height="10px" scr="<?= TEMPLATE_URL ?>admin/main/images/admin/sort_asc.png" alt="">
                             </a>
                         </th>
                         <th class="title">
@@ -156,10 +159,11 @@ if (!empty($message)) {
                             $modified_by = $value['modified_by'];
                             $groupName  = $value['group_name'];
 
-                            $linkDelete = "";
+                            $linkDelete = URL::createLink("admin", "user", "delete", array("id" => $id));
+                            $delete = 'javascript:deleteUser(\' ' . $linkDelete . ' \', ' . $id . ')';
                             $linkUpdate = URL::createLink("admin", "user", "edit", array("id" => $id));
                     ?>
-                            <tr class="row0">
+                            <tr class="row0" id="item-<?= $id ?>">
                                 <td class="center">
                                     <input type="checkbox" name="checkbox[]" value="<?= $id ?>">
                                 </td>
@@ -181,7 +185,7 @@ if (!empty($message)) {
                                 <td class="center"><?= $groupName ?></td>
                                 <td style="display: flex;justify-content: space-evenly;">
                                     <a href="<?= $linkUpdate ?>" style="padding: 4px 8px;background: #ffc107;color: #fff;border-radius: 5px;">Update</a>
-                                    <a href="#" class="" style="padding: 4px 8px;background: #ec4536;color: #fff; border-radius: 5px;">Delete</a>
+                                    <a href="<?= $delete ?>" class="" style="padding: 4px 8px;background: #ec4536;color: #fff; border-radius: 5px;">Delete</a>
                                 </td>
                             </tr>
                     <?php  # code...

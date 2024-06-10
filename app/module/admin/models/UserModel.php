@@ -185,4 +185,13 @@ class UserModel extends Model
             Session::setSession('message', array("class" => "success", "content" => "Cập nhật thành công"));
         }
     }
+
+    public function deleteUser($arrParams)
+    {
+        if (!empty($arrParams['id']) && $arrParams['type'] == "deleteUser") {
+            $ids = $arrParams['id'];
+            $sql = "DELETE FROM `$this->table` WHERE `id` IN($ids)";
+            $this->query($sql);
+        }
+    }
 }

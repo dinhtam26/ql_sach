@@ -201,3 +201,40 @@ function changStatusUser(url) {
         },
     });
 }
+
+function deleteUser(url, id) {
+    console.log(url);
+    console.log(id);
+    $(function () {
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                Yes: function () {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        data: { type: "deleteUser" },
+                        dataType: "json",
+                        success: function (data, response) {
+                            console.log(data);
+                            if (data == undefined) {
+                                $("#item-" + id).hide(500);
+                                $("#system-message").text("Bạn đã xóa thành công").show();
+                                setTimeout(() => {
+                                    $("#system-message").hide();
+                                }, 2000);
+                            }
+                        },
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                },
+            },
+        });
+    });
+}

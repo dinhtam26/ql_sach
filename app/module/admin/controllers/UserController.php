@@ -109,4 +109,12 @@ class UserController extends Controller
 
         $this->_view->render("user/edit");
     }
+
+    // DELETE 
+    public function deleteAction()
+    {
+
+        $id = $this->_model->deleteUser($this->_arrParams);
+        echo json_encode($id);
+    }
 }
