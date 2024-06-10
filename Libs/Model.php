@@ -112,7 +112,7 @@ class Model
         $newQuery = $this->createUpdate($data);
         $newQueryWhere = $this->createWhereUpdateSql($where);
 
-        echo  $sql = "UPDATE $this->table SET $newQuery
+        $sql = "UPDATE $this->table SET $newQuery
                WHERE $newQueryWhere";
         $this->query($sql);
         return $this->affectedRows();

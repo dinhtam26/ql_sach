@@ -74,4 +74,39 @@ class UserController extends Controller
         }
         $this->_view->render("user/add");
     }
+
+    // EDIT
+    public function editAction()
+    {
+        $this->_view->_title = "Edit User";
+        $this->_view->data['listGroupName']  = $this->_model->getGroupName($this->_arrParams);
+
+
+        if (!empty($this->_model->getOneUser($this->_arrParams))) {
+            $this->_view->data['userById'] = $this->_model->getOneUser($this->_arrParams);
+        } else {
+            Header("Location: " . URL::createLink("admin", "user", "index"));
+        }
+        // Validate
+        if (!empty($this->_arrParams['form'])) {
+            $validate = new Validate($this->_arrParams['form']);
+
+            $validate->addRule("username", "string", array("min" => 2, "max" => 255))
+                ->addRule("email", "email")
+                ->addRule("password", "password")
+                ->addRule("fullname", "string", array("min" => 2, "max" => 255))
+                ->addRule("status", "status")
+                ->addRule("group_id", "status")
+                ->addRule("ordering", "int", array("min" => 1, "max" => 100));
+
+            $validate->run();
+            if ($validate->isValid() == false) {
+                $this->_view->errors = $validate->getErrors();
+            } else {
+                $this->_model->updateUser($this->_arrParams);
+            }
+        }
+
+        $this->_view->render("user/edit");
+    }
 }

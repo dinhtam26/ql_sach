@@ -30,6 +30,8 @@ if (!empty($message)) {
                     </dd>
                 </dl>';
 }
+
+
 ?>
 <div id="toolbar-box">
     <div class="m">
@@ -104,7 +106,7 @@ if (!empty($message)) {
                                 <span>Ordering</span>
                             </a>
                         </th>
-                        <th width="10%">
+                        <th width="8%">
                             <a href="#" onclick="javascript:sortList('status', 'desc')">
                                 <span>Created</span>
                             </a>
@@ -114,7 +116,7 @@ if (!empty($message)) {
                                 <span>Created_By</span>
                             </a>
                         </th>
-                        <th width="10%">
+                        <th width="8%">
                             <a href="#" onclick="javascript:sortList('status', 'desc')">
                                 <span>Modified</span>
                             </a>
@@ -128,6 +130,9 @@ if (!empty($message)) {
                             <a href="#" onclick="javascript:sortList('status', 'desc')">
                                 <span>Group Name</span>
                             </a>
+                        </th>
+                        <th width="10%">
+                            <span>Action</span>
                         </th>
 
                     </tr>
@@ -149,7 +154,10 @@ if (!empty($message)) {
                             $create_by  = $value['created_by'];
                             $modified   = Helper::cmsFormatDate($value['modified']);
                             $modified_by = $value['modified_by'];
-                            $groupName  = $value['group_name']
+                            $groupName  = $value['group_name'];
+
+                            $linkDelete = "";
+                            $linkUpdate = URL::createLink("admin", "user", "edit", array("id" => $id));
                     ?>
                             <tr class="row0">
                                 <td class="center">
@@ -171,6 +179,10 @@ if (!empty($message)) {
                                 <td class="center"><?= $modified ?></td>
                                 <td class="center"><?= $modified_by ?></td>
                                 <td class="center"><?= $groupName ?></td>
+                                <td style="display: flex;justify-content: space-evenly;">
+                                    <a href="<?= $linkUpdate ?>" style="padding: 4px 8px;background: #ffc107;color: #fff;border-radius: 5px;">Update</a>
+                                    <a href="#" class="" style="padding: 4px 8px;background: #ec4536;color: #fff; border-radius: 5px;">Delete</a>
+                                </td>
                             </tr>
                     <?php  # code...
                         }
@@ -179,7 +191,7 @@ if (!empty($message)) {
                 <!-- FOOTER TABLE -->
                 <tfoot>
                     <tr>
-                        <td colspan="11">
+                        <td colspan="12">
                             <!-- PAGINATION -->
                             <div class="container">
                                 <div class="pagination">

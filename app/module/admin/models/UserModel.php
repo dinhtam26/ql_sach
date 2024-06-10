@@ -158,4 +158,31 @@ class UserModel extends Model
             Session::setSession('message', array("class" => "success", "content" => "Thêm mới thành công 1 user"));
         }
     }
+
+    // GET ONE USER BY ID
+    public function getOneUser($arrParams)
+    {
+        if (!empty($arrParams['id'])) {
+            $id = $arrParams['id'];
+            $sql = "SELECT `id`, `username`, `email`, `password`, `fullname`, `status`, `group_id`, `ordering`
+                    FROM $this->table 
+                    WHERE `id` = '$id'";
+            $result = $this->singleRecord($sql);
+            return $result;
+        }
+    }
+
+    // UPDATE USER
+    public function updateUser($arrParams)
+    {
+        if (!empty($arrParams['form']) && ($arrParams['form']['token'] > 0)) {
+            $data               = $arrParams['form'];
+            $data['modified']    = date("Y-m-d", time());
+            $data['created_by']     = 3;
+            $ids = [['id',  $arrParams['id']]];
+            $data = array_intersect_key($data, array_flip($this->_column));
+            $this->update($data, $ids);
+            Session::setSession('message', array("class" => "success", "content" => "Cập nhật thành công"));
+        }
+    }
 }
