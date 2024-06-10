@@ -67,9 +67,13 @@ class Helper
     }
 
     // Create SelectBox
-    public static function cmsSelectBox($name, $class, $arrValue, $keySelect = 0)
+    public static function cmsSelectBox($name, $class, $arrValue, $keySelect = 0, $style = false)
     {
-        $xhtml = '  <select name="' . $name . '" class="' . $class . '">';
+        if ($style == true) {
+            $xhtml = '  <select style="height: 30px; width: 380px" name="' . $name . '" class="' . $class . '">';
+        } else {
+            $xhtml = '  <select name="' . $name . '" class="' . $class . '">';
+        }
         foreach ($arrValue as $key => $value) {
             if ($key == $keySelect) {
                 $xhtml .= '<option value="' . $key . '" selected="selected">' . $value . '</option>';

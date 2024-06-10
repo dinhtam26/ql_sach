@@ -42,7 +42,7 @@ switch ($this->_arrParams['action']) {
         $strButton = $btnNew .  $btnPublic . $btnUnPublic . $btnTrash;
         break;
     case 'add':
-        $strButton = $btnSave . $btnSaveNew . $btnSaveClose . $btnCancel;
+        $strButton = $btnSave .  $btnCancel;
         break;
     case 'edit':
         $strButton = $btnEdit . $btnCancel;

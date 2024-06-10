@@ -45,4 +45,33 @@ class UserController extends Controller
         $result = $this->_model->changerOrder($this->_arrParams);
         echo json_encode($result);
     }
+
+    // ADD
+    public function addAction()
+    {
+        $this->_view->_title = "Add User";
+        $this->_view->data['listGroupName']  = $this->_model->getGroupName($this->_arrParams);
+
+        if (!empty($this->_arrParams['form'])) {
+            $validate = new Validate($this->_arrParams['form']);
+
+            $validate->addRule("username", "string", array("min" => 2, "max" => 255))
+                ->addRule("email", "email")
+                ->addRule("password", "password")
+                ->addRule("fullname", "string", array("min" => 2, "max" => 255))
+                ->addRule("status", "status")
+                ->addRule("group_id", "status")
+                ->addRule("ordering", "int", array("min" => 1, "max" => 100));
+
+            $validate->run();
+            if ($validate->isValid() == false) {
+                $this->_view->errors = $validate->getErrors();
+            } else {
+                $this->_model->addUser($this->_arrParams);
+                Header("Location:" . URL::createLink("admin", "user", "index"));
+                exit();
+            }
+        }
+        $this->_view->render("user/add");
+    }
 }

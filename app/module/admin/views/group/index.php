@@ -35,7 +35,7 @@ $strMess = '';
 
 if (!empty($message)) {
 
-    $strMess .= '<dl id="system-message">
+    $strMess .= '<dl id="system-message errors-message">
                     <dt class="' . $message['class'] . '">' . ucfirst($message['class']) . '</dt>
                     <dd class="' . $message['class'] . ' message">
                         <ul>
@@ -58,7 +58,7 @@ if (!empty($message)) {
 
 <?php include_once "submenu/index.php" ?>
 
-<div id="system-message-container">
+<div id="system-message-container group_errors">
     <?= $strMess ?>
 </div>
 

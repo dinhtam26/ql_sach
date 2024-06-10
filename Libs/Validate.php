@@ -152,7 +152,7 @@ class Validate
 
 		// 0 unpublish, 1 publish, default 
 		if ($this->sources[$element] == "default") {
-			$this->errors[$element] =  "Vui lòng chọn status";
+			$this->errors[$element] =  "Vui lòng chọn $element";
 		}
 	}
 

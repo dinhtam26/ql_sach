@@ -13,9 +13,23 @@ if (!empty([$this->data['listGroupName']])) {
 
     $groupSelect    = Helper::cmsSelectBox("filter_group", "inputbox", $arrGroup, $this->_arrParams['filter_group'] ?? "");
 }
-
-
 $pagination = $this->pagination->showPagination();
+
+// MESSAGE ERROR OR SUCCESS
+$message = Session::getSession("message");
+Session::deleteSession("message");
+$strMess  = '';
+if (!empty($message)) {
+
+    $strMess .= '<dl id="system-message errors-message">
+                    <dt class="' . $message['class'] . '">' . ucfirst($message['class']) . '</dt>
+                    <dd class="' . $message['class'] . ' message">
+                        <ul>
+                            <li>' . $message['content'] . '</li>
+                        </ul>
+                    </dd>
+                </dl>';
+}
 ?>
 <div id="toolbar-box">
     <div class="m">
@@ -29,7 +43,9 @@ $pagination = $this->pagination->showPagination();
 </div>
 
 <?php include_once "submenu/index.php" ?>
-
+<div id="system-message-container group_errors">
+    <?= $strMess ?>
+</div>
 <!-- CONTENT -->
 <div id="element-box">
     <div class="m">
@@ -187,7 +203,3 @@ $pagination = $this->pagination->showPagination();
     </div>
 </div>
 <?php
-
-echo "<pre/>";
-print_r($this->_arrParams);
-echo "<pre/>";
