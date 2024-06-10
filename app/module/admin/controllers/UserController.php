@@ -117,4 +117,12 @@ class UserController extends Controller
         $id = $this->_model->deleteUser($this->_arrParams);
         echo json_encode($id);
     }
+
+    // DELETE ALL BY CHECKBOX
+    public function deleteAllAction()
+    {
+        $this->_model->deleteAllUser($this->_arrParams);
+        header("Location:" . URL::createLink("admin", "user", "index"));
+        exit();
+    }
 }

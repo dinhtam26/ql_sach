@@ -194,4 +194,17 @@ class UserModel extends Model
             $this->query($sql);
         }
     }
+
+    public function deleteAllUser($arrParams)
+    {
+        if (!empty($arrParams['checkbox'])) {
+            $ids = $arrParams['checkbox'];
+            $ids = $this->createWhereDeleteSql($ids);
+            $sql = "DELETE FROM `$this->table` WHERE `id` IN($ids)";
+            $this->query($sql);
+            Session::setSession("message", array("class" => "success", "content" => "Xóa thành công"));
+        } else {
+            Session::setSession("message", array("class" => "error", "content" => "Vui lòng chọn phần tử muốn xóa"));
+        }
+    }
 }

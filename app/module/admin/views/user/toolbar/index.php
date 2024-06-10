@@ -19,7 +19,7 @@ $linkUnPublic = URL::createLink("admin", "user", "status", array("type" => 0));
 $btnUnPublic  = Helper::cmsButton("Unpublic", "toolbar-unpublish", $linkUnPublic, "icon-32-unpublish", "submit");
 
 // Trash
-$linkTrash = URL::createLink("admin", "user", "delete");
+$linkTrash = URL::createLink("admin", "user", "deleteAll");
 $btnTrash  = Helper::cmsButton("Trash", "toolbar-trash", $linkTrash, "icon-32-trash", "submit");
 
 // Save 
