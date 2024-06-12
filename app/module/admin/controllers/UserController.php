@@ -92,9 +92,11 @@ class UserController extends Controller
         // Validate
         if (!empty($this->_arrParams['form'])) {
             $validate = new Validate($this->_arrParams['form']);
-
+            $emailAdd = $this->_arrParams['form']['email'];
+            $queryEmail = "SELECT `id` FROM `user` WHERE `email` = '$emailAdd'";
             $validate->addRule("username", "string", array("min" => 2, "max" => 255))
                 ->addRule("email", "email")
+                ->addRule("email", "recordExits", array("database" => $this->_model, "query" => $queryEmail))
                 ->addRule("password", "password")
                 ->addRule("fullname", "string", array("min" => 2, "max" => 255))
                 ->addRule("status", "status")
