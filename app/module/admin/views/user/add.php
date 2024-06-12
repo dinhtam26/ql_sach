@@ -93,6 +93,3 @@ if (!empty($this->errors)) {
     </div>
 </div>
 <?php
-echo "<pre/>";
-print_r($this);
-echo "<pre/>";
