@@ -30,6 +30,21 @@ if (!empty($message)) {
                     </dd>
                 </dl>';
 }
+$columnPost = $this->_arrParams['filter_column'] ?? "id";
+$orderPost  = $this->_arrParams['filter_column_asc'] ?? "desc";
+
+$lblUserName    = Helper::linkSort("Username", "username", $columnPost, $orderPost);
+$lblEmail       = Helper::linkSort("Email", "email", $columnPost, $orderPost);
+$lblFullName    = Helper::linkSort("FullName", "fullname", $columnPost, $orderPost);
+$lblStatus      = Helper::linkSort("Status", "status", $columnPost, $orderPost);
+$lblOrdering    = Helper::linkSort("Ordering", "ordering", $columnPost, $orderPost);
+$lblCreated     = Helper::linkSort("Created", "created", $columnPost, $orderPost);
+$lblCreated_by  = Helper::linkSort("Created_by", "created_by", $columnPost, $orderPost);
+$lblModified    = Helper::linkSort("Modified ", "modified ", $columnPost, $orderPost);
+$lblModified_by = Helper::linkSort("Modified_by", "modified_by", $columnPost, $orderPost);
+$lblID          = Helper::linkSort("ID", "id", $columnPost, $orderPost);
+$GroupName      = Helper::linkSort("GroupName", "group_id", $columnPost, $orderPost);
+
 
 
 ?>
@@ -82,57 +97,34 @@ if (!empty($message)) {
                             <input type="checkbox" name="checkall-toggle" id="check-all">
                         </th>
                         <th class="title">
-                            <a href="#" onclick="javascript:sortList('name', 'desc')">
-                                <span>UserName</span>
-                                <img width="10px" height="10px" scr="<?= TEMPLATE_URL ?>admin/main/images/admin/sort_asc.png" alt="">
-                            </a>
+                            <?= $lblUserName ?>
                         </th>
                         <th class="title">
-                            <a href="#" onclick="javascript:sortList('name', 'desc')">
-                                <span>Email</span>
-                                <img width="10px" height="10px" scr="/BookStore/Public/Template/admin/main/images/admin/sort_asc.png" alt="">
-                            </a>
+                            <?= $lblEmail ?>
                         </th>
                         <th class="title">
-                            <a href="#" onclick="javascript:sortList('name', 'desc')">
-                                <span>FullName</span>
-                                <img width="10px" height="10px" scr="/BookStore/Public/Template/admin/main/images/admin/sort_asc.png" alt="">
-                            </a>
+                            <?= $lblFullName ?>
                         </th>
                         <th width="6%">
-                            <a href="#" onclick="javascript:sortList('status', 'desc')">
-                                <span>Status</span>
-                            </a>
+                            <?= $lblStatus ?>
                         </th>
                         <th width="6%">
-                            <a href="#" onclick="javascript:sortList('status', 'desc')">
-                                <span>Ordering</span>
-                            </a>
+                            <?= $lblOrdering ?>
                         </th>
                         <th width="8%">
-                            <a href="#" onclick="javascript:sortList('status', 'desc')">
-                                <span>Created</span>
-                            </a>
+                            <?= $lblCreated ?>
                         </th>
                         <th width="10%">
-                            <a href="#" onclick="javascript:sortList('status', 'desc')">
-                                <span>Created_By</span>
-                            </a>
+                            <?= $lblCreated_by ?>
                         </th>
                         <th width="8%">
-                            <a href="#" onclick="javascript:sortList('status', 'desc')">
-                                <span>Modified</span>
-                            </a>
+                            <?= $lblModified ?>
                         </th>
                         <th width="10%">
-                            <a href="#" onclick="javascript:sortList('status', 'desc')">
-                                <span>Modified_By</span>
-                            </a>
+                            <?= $lblModified_by ?>
                         </th>
                         <th width="10%">
-                            <a href="#" onclick="javascript:sortList('status', 'desc')">
-                                <span>Group Name</span>
-                            </a>
+                            <?= $GroupName  ?>
                         </th>
                         <th width="10%">
                             <span>Action</span>

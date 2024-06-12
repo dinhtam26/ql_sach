@@ -36,6 +36,13 @@ class UserModel extends Model
             // die("dừng");
         }
 
+        // SORT LIST (Sắp xếp danh sách)
+        if (!empty($arrParams['filter_column']) && !empty($arrParams['filter_column_asc'])) {
+            $column             = $arrParams['filter_column'];
+            $filter_asc_dec     = $arrParams['filter_column_asc'];
+            $sql[] = "ORDER BY $column $filter_asc_dec";
+        }
+
         // FILTER PAGINATION
         $position         = ($pagination['currentPage'] - 1) * $pagination['totalItemPerPage'];
         $totalItemPerPage = $pagination['totalItemPerPage'];
