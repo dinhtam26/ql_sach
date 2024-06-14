@@ -5,6 +5,7 @@ $statusSelect   = Helper::cmsSelectBox("form[status]", "inputbox", $arrStatus, $
 if (!empty([$this->data['listGroupName']])) {
     $arrGroup   = array_column($this->data['listGroupName'], "name", "id");
     $arrGroup['default']    = "- Select Group - ";
+
     krsort($arrGroup);
 
     $groupSelect    = Helper::cmsSelectBox("form[group_id]", "inputbox", $arrGroup, $this->_arrParams['form']['group_id'] ?? "", true);

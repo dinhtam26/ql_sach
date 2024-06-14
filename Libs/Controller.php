@@ -18,15 +18,12 @@ class Controller
 
     public function __construct($arrParams)
     {
-
         $this->setModel($arrParams['module'], $arrParams['controller']);
         $this->setView($arrParams['module']);
         $this->setTemplate($this);
-
-        $this->_pagination['currentPage'] = isset($arrParams['filter_pagination']) ? $arrParams['filter_pagination'] : 1;
-        // $arrParams['pagination'] = $this->_pagination;
         $this->setParams($arrParams);
 
+        $this->_pagination['currentPage'] = isset($arrParams['filter_pagination']) ? $arrParams['filter_pagination'] : 1;
         if (!empty($this->_arrParams['filter_page'])) {
             if (is_numeric($this->_arrParams['filter_page'])) {
                 $this->_pagination['totalItemPerPage'] = $this->_arrParams['filter_page'];

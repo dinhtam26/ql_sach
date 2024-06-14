@@ -1,11 +1,21 @@
 <?php
 class UserController extends Controller
 {
+    public function __construct($arrParams)
+    {
+        parent::__construct($arrParams);
+
+        $this->_templateObj->setFolderTemplate("default/main");
+        $this->_templateObj->setFileTemplate("index.php");
+        $this->_templateObj->setFileConfig("template.ini");
+        $this->_templateObj->load();
+    }
+
     public function indexAction()
     {
-        echo "<h3>" . __METHOD__ . "</h3>";
-        $this->setModel("admin", "index");
-        $this->_model->listItem();
+        $this->_view->_title = "User Default";
+        $this->_view->setCss(array("user/css/bootstrap.min.css"));
+        $this->_view->render("user/index");
     }
 
     public function addAction()

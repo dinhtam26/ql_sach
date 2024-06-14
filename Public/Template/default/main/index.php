@@ -12,7 +12,7 @@
 
 
 <body>
-    <?php include_once "html/header.php"; ?>
+
     <div id="content-box">
         <!-- LOAD CONTENT -->
         <?php
@@ -20,7 +20,7 @@
         require_once MODULE_PATH . $this->moduleName . DS . "views" . DS . $this->_fileView . ".php";
         ?>
     </div>
-    <?php include_once "html/footer.php"; ?>
+
 </body>
 
 </html>

@@ -14,12 +14,12 @@ class UserController extends Controller
 
     public function indexAction()
     {
-        $this->_view->_title = "User";
-        $totalItem           = $this->_model->countUser($this->_arrParams);
-        $this->_view->pagination = new Pagination($totalItem, $this->_pagination);
+        $this->_view->_title        = "User";
+        $totalItem                  = $this->_model->countUser($this->_arrParams);
+        $this->_view->pagination    = new Pagination($totalItem, $this->_pagination);
 
-        $this->_view->data['listUser']   =   $this->_model->listUser($this->_arrParams,  $this->_pagination);
-        $this->_view->data['listGroupName']  = $this->_model->getGroupName($this->_arrParams);
+        $this->_view->data['listUser']          =   $this->_model->listUser($this->_arrParams,  $this->_pagination);
+        $this->_view->data['listGroupName']     =   $this->_model->getGroupName($this->_arrParams);
 
         $this->_view->render("user/index");
     }
@@ -81,6 +81,7 @@ class UserController extends Controller
     public function editAction()
     {
         $this->_view->_title = "Edit User";
+        $this->_view->setCss(array("user/css/bootstrap.min.css"));
         $this->_view->data['listGroupName']  = $this->_model->getGroupName($this->_arrParams);
 
 

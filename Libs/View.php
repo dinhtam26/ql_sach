@@ -21,6 +21,7 @@ class View
 
     public function render($viewName, $loadFull = true)
     {
+
         $path = MODULE_PATH . $this->moduleName . DS . "views" . DS . $viewName . ".php";
         if (file_exists($path)) {
             if ($loadFull == true) {
@@ -45,10 +46,10 @@ class View
 
     public function setCss($arrayCss)
     {
-        $xhtml = '';
+
         if (!empty($arrayCss)) {
             foreach ($arrayCss as $css) {
-                $file = APP_URL . $this->moduleName . DS . "views" . DS . $css;
+                $file = APP_URL . "module/" . $this->moduleName . DS . "views" . DS . $css;
                 $this->_cssFile .= '<link rel="stylesheet" type="text/css" href="' . $file . '" />';
             }
         }

@@ -14,7 +14,7 @@ class Bootstrap
             $this->loadExistingController($filePath, $controllerName);
             $this->callMethod();
         } else {
-            $this->loadDefaultController();
+            $this->_error();
         }
     }
 
@@ -30,12 +30,10 @@ class Bootstrap
     {
         $controllerName = ucfirst(DEFAULT_CONTROLLER) . "Controller";
         $actionName     = DEFAULT_ACTION . "Action";
-        $filePath       = MODULE_PATH . DEFAULT_MODULE . DS . "controllers" . DS . $controllerName . ".php";
+        echo  $filePath       = MODULE_PATH . "admin" . DS . "controllers" . DS . $controllerName . ".php";
         if (file_exists($filePath)) {
             require_once $filePath;
-            $this->_controllerObj = new $controllerName();
-            $this->_controllerObj->setView(DEFAULT_MODULE);
-            $this->_controllerObj->$actionName();
+            $this->_controllerObj = new $controllerName($this->_params);
         }
     }
     // LOAD Existing CONTROLLER
@@ -70,7 +68,7 @@ class Bootstrap
     public function _error()
     {
         require_once MODULE_PATH . "default" . DS . "controllers" . DS . "ErrorController.php";
-        $errorCtl = new ErrorController();
+        $errorCtl = new ErrorController($this->_params);
         $errorCtl->setView("default");
 
         $errorCtl->indexAction();
