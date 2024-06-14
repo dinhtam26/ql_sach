@@ -1,5 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<?php
+$images = TEMPLATE_URL . "default/main/images";
+?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <?= $this->_metaHTTP ?>
@@ -9,17 +12,32 @@
     <?= $this->_jsFile ?>
 </head>
 
-
-
 <body>
+    <div id="wrap">
+        <?php include "html/header.php" ?>
 
-    <div id="content-box">
-        <!-- LOAD CONTENT -->
-        <?php
 
-        require_once MODULE_PATH . $this->moduleName . DS . "views" . DS . $this->_fileView . ".php";
-        ?>
+        <div class="center_content">
+            <div class="left_content">
+                <?php
+                require_once MODULE_PATH . $this->moduleName . DS . "views" . DS . $this->_fileView . ".php";
+                ?>
+            </div>
+            <?php include "html/slide_bar.php" ?>
+
+
+
+
+            <div class="clear"></div>
+        </div>
+        <!--end of center content-->
+
+
+        <?php include "html/footer.php" ?>
+
+
     </div>
+
 
 </body>
 

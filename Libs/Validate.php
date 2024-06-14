@@ -192,11 +192,13 @@ class Validate
 
 	private function validateRecordExits($element, $options)
 	{
+
+
 		$database = $options['database'];
 		$query    = $options['query'];
 
 		if ($database->exits($query)) {
-			$this->errors[$element] = "record is exits";
+			$this->errors[$element] = " $element  này đã tồn tại.";
 		}
 	}
 
