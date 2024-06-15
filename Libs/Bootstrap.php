@@ -52,12 +52,56 @@ class Bootstrap
     public function callMethod()
     {
         $actionName = $this->_params['action'] . "Action";
+
         if (method_exists($this->_controllerObj, $actionName)) {
+
+            $module     = $this->_params['module'];
+            $controller = $this->_params['controller'];
+            $action     = $this->_params['action'];
+            if ($module == "admin") {
+                $pageLogin  = ($this->_params['controller'] == "index" && $this->_params['action'] == "login");
+                if (!empty(Session::getSession("user"))) {
+                    $userInfo   = Session::getSession("user");
+                    $login      = $userInfo['login'];
+                    $time       = $userInfo['time'] + 3600;
+
+                    if ($login == true && $time >= time()) {
+                        if ($userInfo['group_acp'] == 1) {
+                            if ($pageLogin == true) {
+                                header("Location: " . URL::createLink("admin", "index", "index"));
+                                exit();
+                            }
+                        } else {
+                            if ($pageLogin == false) {
+                                header("Location: " . URL::createLink("admin", "index", "login"));
+                                exit();
+                            }
+                        }
+                    } else {
+                        Session::deleteSession("user");
+                        if ($pageLogin == false) {
+                            header("Location: " . URL::createLink("admin", "index", "login"));
+                            exit();
+                        }
+                    }
+                } else {
+                    if ($pageLogin == false) {
+                        header("Location: " . URL::createLink("admin", "index", "login"));
+                        exit();
+                    }
+                }
+            } else if ($module == "default") {
+                // Trường hợp default
+                // echo "<pre/>";
+                // print_r(Session::getSession("user"));
+                // echo "<pre/>";
+            }
             $this->_controllerObj->$actionName();
         } else {
             $this->_error();
         }
     }
+
 
 
 

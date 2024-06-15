@@ -7,10 +7,17 @@ $linkAddUser        = URL::createLink("admin", "user", "add");
 
 $linkGroupManage     = URL::createLink("admin", "group", "index");
 $linkAddGroup        = URL::createLink("admin", "group", "add");
+
+$linkLogout          = URL::createLink("admin", "index", "logout")
 ?>
+<div id="border-top" class="h_blue">
+    <span class="title"><a href="index.php">Administration</a></span>
+</div>
+
+
 <div id="header-box">
     <div id="module-status">
-        <span class="no-unread-messages"><a href="#">Log out</a></span>
+        <span class="no-unread-messages"><a href="<?= $linkLogout ?>">Log out</a></span>
     </div>
     <div id="module-menu">
         <!-- MENU -->
