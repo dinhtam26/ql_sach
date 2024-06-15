@@ -2,8 +2,8 @@
 $arrStatus  = array("default" => "- Select Status -", "0" => "unpublish", "1" => "public");
 $status     = Helper::cmsSelectBox("filter_status", "inputbox", $arrStatus, $this->_arrParams['filter_status'] ?? "");
 
-$arrPagination  = array("default" => "- Select Pagination -", "5" => "5", "10" => "10", "20" => "20", "50" => "50");
-$paginationSelect         = Helper::cmsSelectBox("filter_page", "inputbox", $arrPagination, $this->_arrParams['filter_page'] ?? "");
+$arrPagination        = array("default" => "- Select Pagination -", "5" => "5", "10" => "10", "20" => "20", "50" => "50");
+$paginationSelect     = Helper::cmsSelectBox("filter_page", "inputbox", $arrPagination, $this->_arrParams['filter_page'] ?? "");
 
 
 if (!empty([$this->data['listGroupName']])) {

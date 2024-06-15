@@ -1,22 +1,22 @@
 <?php
 $linkControlPanel   = URL::createLink("admin", "control", "index");
-$linkMyProFile      = URL::createLink("admin", "profile", "index");
+$linkMyProFile      = URL::createLink("admin", "index", "profile");
 $linkUserManage     = URL::createLink("admin", "user", "index");
 $linkAddUser        = URL::createLink("admin", "user", "add");
-
-
-$linkGroupManage     = URL::createLink("admin", "group", "index");
-$linkAddGroup        = URL::createLink("admin", "group", "add");
-
-$linkLogout          = URL::createLink("admin", "index", "logout")
+$linkAdmin          = URL::createLink("admin", "index", "index");
+$linkGroupManage    = URL::createLink("admin", "group", "index");
+$linkAddGroup       = URL::createLink("admin", "group", "add");
+$linkLogout         = URL::createLink("admin", "index", "logout");
+$linkView           = URL::createLink("default", "index", "index");
 ?>
 <div id="border-top" class="h_blue">
-    <span class="title"><a href="index.php">Administration</a></span>
+    <span class="title"><a href="<?= $linkAdmin ?>">Administration</a></span>
 </div>
 
 
 <div id="header-box">
     <div id="module-status">
+        <span class="viewsite"><a href="<?= $linkView ?>">View Site</a></span>
         <span class="no-unread-messages"><a href="<?= $linkLogout ?>">Log out</a></span>
     </div>
     <div id="module-menu">

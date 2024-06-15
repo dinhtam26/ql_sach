@@ -114,6 +114,7 @@ class Model
 
         $sql = "UPDATE $this->table SET $newQuery
                WHERE $newQueryWhere";
+
         $this->query($sql);
         return $this->affectedRows();
     }

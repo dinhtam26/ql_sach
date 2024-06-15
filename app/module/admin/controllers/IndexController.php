@@ -56,4 +56,26 @@ class IndexController extends Controller
         $this->_view->_title = "Index";
         $this->_view->render("index/index");
     }
+
+    public function profileAction()
+    {
+
+
+        $userInfo = Session::getSession('user');
+        $this->_view->userInfo = $userInfo['info'];
+
+        $this->_view->data['user'] = $this->_model->getUserById($userInfo['info']['id']);
+
+        $this->_view->_title = "Profile";
+        $this->_view->render("index/profile");
+    }
+
+    public function editProfileAction()
+    {
+        if (!empty($this->_arrParams['form'])) {
+            $this->_model->editProfile($this->_arrParams);
+            header("Location: " . URL::createLink("admin", "index", "profile"));
+            exit();
+        }
+    }
 }
