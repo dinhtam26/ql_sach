@@ -14,12 +14,17 @@ class UserController extends Controller
 
     public function indexAction()
     {
-        $this->_view->_title        = "User";
+        $userInfo = Session::getSession("user");
+        $nameUser = $userInfo['info']['username'];
+        $this->_view->_title        = "User -  $nameUser";
         $totalItem                  = $this->_model->countUser($this->_arrParams);
         $this->_view->pagination    = new Pagination($totalItem, $this->_pagination);
 
-        $this->_view->data['listUser']          =   $this->_model->listUser($this->_arrParams,  $this->_pagination);
-        $this->_view->data['listGroupName']     =   $this->_model->getGroupName($this->_arrParams);
+        $this->_view->data['listUser']              =   $this->_model->listUser($this->_arrParams,  $this->_pagination);
+        $this->_view->data['listGroupName']         =   $this->_model->getGroupName($this->_arrParams);
+
+
+
 
         $this->_view->render("user/index");
     }
@@ -51,6 +56,8 @@ class UserController extends Controller
     {
         $this->_view->_title = "Add User";
         $this->_view->data['listGroupName']  = $this->_model->getGroupName($this->_arrParams);
+        $userInfo = Session::getSession("user");
+
 
         if (!empty($this->_arrParams['form'])) {
             $validate = new Validate($this->_arrParams['form']);
@@ -69,11 +76,13 @@ class UserController extends Controller
             if ($validate->isValid() == false) {
                 $this->_view->errors = $validate->getErrors();
             } else {
-                $this->_model->addUser($this->_arrParams);
+                $this->_model->addUser($this->_arrParams, $userInfo['info']);
                 Header("Location:" . URL::createLink("admin", "user", "index"));
                 exit();
             }
         }
+
+
         $this->_view->render("user/add");
     }
 
@@ -84,7 +93,7 @@ class UserController extends Controller
         $this->_view->setCss(array("user/css/bootstrap.min.css"));
         $this->_view->data['listGroupName']  = $this->_model->getGroupName($this->_arrParams);
 
-
+        $userInfo = Session::getSession("user");
         if (!empty($this->_model->getOneUser($this->_arrParams))) {
             $this->_view->data['userById'] = $this->_model->getOneUser($this->_arrParams);
         } else {
@@ -96,8 +105,7 @@ class UserController extends Controller
             $emailAdd = $this->_arrParams['form']['email'];
             $queryEmail = "SELECT `id` FROM `user` WHERE `email` = '$emailAdd'";
             $validate->addRule("username", "string", array("min" => 2, "max" => 255))
-                ->addRule("email", "email")
-                ->addRule("email", "recordExits", array("database" => $this->_model, "query" => $queryEmail))
+
                 ->addRule("password", "password")
                 ->addRule("fullname", "string", array("min" => 2, "max" => 255))
                 ->addRule("status", "status")
@@ -108,7 +116,7 @@ class UserController extends Controller
             if ($validate->isValid() == false) {
                 $this->_view->errors = $validate->getErrors();
             } else {
-                $this->_model->updateUser($this->_arrParams);
+                $this->_model->updateUser($this->_arrParams, $userInfo['info']);
             }
         }
 

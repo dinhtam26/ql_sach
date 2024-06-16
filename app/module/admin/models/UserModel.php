@@ -11,9 +11,13 @@ class UserModel extends Model
     // LIST USER
     public function listUser($arrParams, $pagination)
     {
-        $sql[] = "SELECT `u`.id,`username`, `email`, `fullname`, `u`.`status`, `u`.`ordering`, `u`.`created`,`u`.`created_by`, `u`.`modified`, `u`.`modified_by`, `g`.name AS 'group_name'";
-        $sql[] = "FROM `$this->table` AS `u`, `grouper` AS `g` ";
-        $sql[] = " WHERE `u`.group_id =  `g`.id";
+        $sql[] = "SELECT `u`.id,`u`.`username`, `u`.`email`, `u`.`fullname`, `u`.`status`, `u`.`ordering`, `u`.`created`,
+                 (SELECT `us`.username FROM `user` AS `us` WHERE `u`.created_by = `us`.id)  AS 'created_by',
+                 `u`.`modified`,
+                 (SELECT `us`.username FROM `user` AS `us` WHERE `u`.modified_by = `us`.id)  AS 'modified_by',
+                 `g`.name AS 'group_name'";
+        $sql[] = "FROM `$this->table` AS `u`, `grouper` AS `g`";
+        $sql[] = " WHERE `u`.group_id =  `g`.id ";
 
 
         // SEARCH
@@ -153,13 +157,13 @@ class UserModel extends Model
     }
 
     // ADD USER
-    public function addUser($arrParams)
+    public function addUser($arrParams, $userInfo)
     {
+
         if (!empty($arrParams['form']) && ($arrParams['form']['token'] > 0)) {
             $data               = $arrParams['form'];
             $data['created']    = date("Y-m-d", time());
-            $data['created_by']     = 2;
-
+            $data['created_by'] = $userInfo['id'];
             $data = array_intersect_key($data, array_flip($this->_column));
             $this->insert($data);
             Session::setSession('message', array("class" => "success", "content" => "Thêm mới thành công 1 user"));
@@ -180,12 +184,12 @@ class UserModel extends Model
     }
 
     // UPDATE USER
-    public function updateUser($arrParams)
+    public function updateUser($arrParams, $userInfo)
     {
         if (!empty($arrParams['form']) && ($arrParams['form']['token'] > 0)) {
             $data               = $arrParams['form'];
             $data['modified']    = date("Y-m-d", time());
-            $data['created_by']     = 3;
+            $data['modified_by']     = $userInfo['id'];
             $ids = [['id',  $arrParams['id']]];
             $data = array_intersect_key($data, array_flip($this->_column));
             $this->update($data, $ids);
@@ -205,6 +209,7 @@ class UserModel extends Model
     public function deleteAllUser($arrParams)
     {
         if (!empty($arrParams['checkbox'])) {
+
             $ids = $arrParams['checkbox'];
             $ids = $this->createWhereDeleteSql($ids);
             $sql = "DELETE FROM `$this->table` WHERE `id` IN($ids)";
@@ -213,5 +218,15 @@ class UserModel extends Model
         } else {
             Session::setSession("message", array("class" => "error", "content" => "Vui lòng chọn phần tử muốn xóa"));
         }
+    }
+
+    // LẤY TÊN NGƯỜI SỬA VÀ NGƯỜI THÊM THEO ID
+    public function getNameByCreatedBy($arrParams)
+    {
+
+        $created = $this->createWhereDeleteSql($arrParams);
+        echo $sql = "SELECT  `u`.username AS 'created_by' FROM `$this->table` AS `u` WHERE `id` IN($created) ";
+        $result = $this->listRecord($sql);
+        return $result;
     }
 }

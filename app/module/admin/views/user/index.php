@@ -33,6 +33,7 @@ if (!empty($message)) {
 $columnPost = $this->_arrParams['filter_column'] ?? "id";
 $orderPost  = $this->_arrParams['filter_column_asc'] ?? "desc";
 
+$lblID    = Helper::linkSort("ID", "id", $columnPost, $orderPost);
 $lblUserName    = Helper::linkSort("Username", "username", $columnPost, $orderPost);
 $lblEmail       = Helper::linkSort("Email", "email", $columnPost, $orderPost);
 $lblFullName    = Helper::linkSort("FullName", "fullname", $columnPost, $orderPost);
@@ -97,6 +98,9 @@ $GroupName      = Helper::linkSort("GroupName", "group_id", $columnPost, $orderP
                             <input type="checkbox" name="checkall-toggle" id="check-all">
                         </th>
                         <th class="title">
+                            <?= $lblID ?>
+                        </th>
+                        <th class="title">
                             <?= $lblUserName ?>
                         </th>
                         <th class="title">
@@ -159,6 +163,7 @@ $GroupName      = Helper::linkSort("GroupName", "group_id", $columnPost, $orderP
                                 <td class="center">
                                     <input type="checkbox" name="checkbox[]" value="<?= $id ?>">
                                 </td>
+                                <td class="center"><a href="#"><?= $id ?></a></td>
                                 <td class="center"><a href="#"><?= $username ?></a></td>
                                 <td class="center"><a href="#"><?= $email ?></a></td>
                                 <td class="center"><a href="#"><?= $fullName ?></a></td>

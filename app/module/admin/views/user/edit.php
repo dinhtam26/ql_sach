@@ -70,7 +70,7 @@ if (!empty($messageSuccess)) {
                         </li>
                         <li>
                             <label>Email<span class="star">&nbsp;*</span></label>
-                            <input style="height: 30px" type="text" name="form[email]" id="email" value="<?= $this->_arrParams['form']['email'] ?? $this->data['userById']['email'] ?? "" ?>" class="inputbox" size="70">
+                            <input disabled style="height: 30px" type="text" name="form[email]" id="email" value="<?= $this->_arrParams['form']['email'] ?? $this->data['userById']['email'] ?? "" ?>" class="inputbox" size="70">
                         </li>
                         <li>
                             <label>Password<span class="star">&nbsp;*</span></label>
