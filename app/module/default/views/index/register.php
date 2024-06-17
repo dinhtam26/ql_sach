@@ -1,5 +1,5 @@
 <?php
-$linkForm = URL::createLink("default", "user", "register");
+$linkForm = URL::createLink("default", "index", "register");
 $strMessage = '';
 if (!empty($this->error)) {
     $strMessage .= '<div style="background: #d51e1eb3; padding: 5px 10px;" class="error">';

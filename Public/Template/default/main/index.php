@@ -23,11 +23,9 @@ $images = TEMPLATE_URL . "default/main/images";
                 require_once MODULE_PATH . $this->moduleName . DS . "views" . DS . $this->_fileView . ".php";
                 ?>
             </div>
-            <?php include "html/slide_bar.php" ?>
-
-
-
-
+            <div class="right_content">
+                <?php include "html/slide_bar.php" ?>
+            </div>
             <div class="clear"></div>
         </div>
         <!--end of center content-->

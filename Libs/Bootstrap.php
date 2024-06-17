@@ -46,6 +46,8 @@ class Bootstrap
             require_once $filePath;
             $this->_controllerObj = new $controllerName($this->_params);
             $this->_controllerObj->setParams($this->_params);
+        } else {
+            $this->_error();
         }
     }
 
@@ -91,10 +93,19 @@ class Bootstrap
                     }
                 }
             } else if ($module == "default") {
-                // Trường hợp default
-                // echo "<pre/>";
-                // print_r(Session::getSession("user"));
-                // echo "<pre/>";
+                $arrRouteNeedAuth = array(
+                    array("controller" => "user", "action" => "index"),
+                    array("controller" => "cart", "action" => "list"),
+                    array("controller" => "cart", "action" => "inc"),
+                    array("controller" => "cart", "action" => "dec"),
+                    array("controller" => "cart", "action" => "del"),
+                );
+
+                $page = array("controller" => $this->_params['controller'], "action" => $this->_params['action']);
+                if (empty(Session::getSession("user")) && in_array($page, $arrRouteNeedAuth)) {
+                    header("Location: " . URL::createLink("default", "index", "login"));
+                    exit();
+                }
             }
             $this->_controllerObj->$actionName();
         } else {
@@ -104,7 +115,13 @@ class Bootstrap
 
 
 
-
+    public function  middleware_auth_check($act, $arrRouteNeedAuth)
+    {
+        if (empty($_SESSION['user']) && in_array($act, $arrRouteNeedAuth)) {
+            header('Location: ' . ROOT_URL . '?act=user-login');
+            exit();
+        }
+    }
 
 
 
