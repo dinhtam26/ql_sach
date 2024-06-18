@@ -66,7 +66,3 @@ if (!empty($message)) {
         <div class="clr"></div>
     </div>
 </div>
-<?php
-echo "<pre/>";
-print_r($this);
-echo "<pre/>";

@@ -57,9 +57,7 @@ class IndexController extends Controller
     public function loginAction()
     {
         $this->_view->_title = "Login";
-        // echo "<pre/>";
-        // print_r($this->_arrParams);
-        // echo "<pre/>";
+
 
         $infoUser = $this->_model->infoItem($this->_arrParams);
 

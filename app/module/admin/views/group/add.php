@@ -63,7 +63,3 @@
 <!-- End Content FORM-->
 
 <?php
-
-// echo "<pre/>";
-// print_r($this);
-// echo "<pre/>";

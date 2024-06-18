@@ -1,7 +1,5 @@
 <?php
-// echo "<pre/>";
-// print_r($this);
-// echo "<pre/>";
+
 // New
 $linkNew = URL::createLink("admin", "group", "add");
 $btnNew = Helper::cmsButton("New", "toolbar-popup-new", $linkNew, "icon-32-new");

@@ -174,10 +174,3 @@ if (!empty($message)) {
 </div>
 
 <?php
-// echo "<pre/>";
-// print_r($this);
-// echo "<pre/>";
-// echo $this->pagination->totalItems;
-// echo "<pre/>";
-// print_r($message);
-// echo "<pre/>";

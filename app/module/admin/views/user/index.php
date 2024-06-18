@@ -30,6 +30,22 @@ if (!empty($message)) {
                     </dd>
                 </dl>';
 }
+
+// MESSAGE PERMISSION
+$messagePer = Session::getSession("permission");
+Session::deleteSession("permission");
+$strMess  = '';
+if (!empty($messagePer)) {
+
+    $strMess .= '<dl id="system-message">
+                    <dt class="error">Error</dt>
+                    <dd class="error message">
+                        <ul>
+                            <li>' . $messagePer . '</li>
+                        </ul>
+                    </dd>
+                </dl>';
+}
 $columnPost = $this->_arrParams['filter_column'] ?? "id";
 $orderPost  = $this->_arrParams['filter_column_asc'] ?? "desc";
 

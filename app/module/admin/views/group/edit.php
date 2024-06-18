@@ -67,7 +67,3 @@ $group_acp     =   Helper::cmsSelectBox("form[group_acp]", "", $arrGroup_acp, $t
 <!-- End Content FORM-->
 
 <?php
-
-echo "<pre/>";
-print_r($this);
-echo "<pre/>";

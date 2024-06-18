@@ -25,17 +25,7 @@ class Bootstrap
         $this->_params = array_merge($defaultParams, $_GET, $_POST);
     }
 
-    // LOAD DEFAULT CONTROLLER
-    private function loadDefaultController()
-    {
-        $controllerName = ucfirst(DEFAULT_CONTROLLER) . "Controller";
-        $actionName     = DEFAULT_ACTION . "Action";
-        echo  $filePath       = MODULE_PATH . "admin" . DS . "controllers" . DS . $controllerName . ".php";
-        if (file_exists($filePath)) {
-            require_once $filePath;
-            $this->_controllerObj = new $controllerName($this->_params);
-        }
-    }
+
     // LOAD Existing CONTROLLER
     private function loadExistingController($filePath, $controllerName)
     {
@@ -61,7 +51,7 @@ class Bootstrap
             $controller = $this->_params['controller'];
             $action     = $this->_params['action'];
             if ($module == "admin") {
-                $pageLogin  = ($this->_params['controller'] == "index" && $this->_params['action'] == "login");
+                $pageLogin  = ($controller == "index" && $action  == "login");
                 if (!empty(Session::getSession("user"))) {
                     $userInfo   = Session::getSession("user");
                     $login      = $userInfo['login'];
@@ -70,41 +60,46 @@ class Bootstrap
                     if ($login == true && $time >= time()) {
                         if ($userInfo['group_acp'] == 1) {
                             if ($pageLogin == true) {
-                                header("Location: " . URL::createLink("admin", "index", "index"));
-                                exit();
+                                Helper::redirect("admin", "index", "index");
+                            }
+
+                            // Phân quyền
+                            $privilege = "$module-$controller-$action";
+                            if (in_array($privilege, $userInfo['info']['privilege'])) {
+                            } else {
+                                // Session::setSession("permission", "Bạn không có quyền thực hiện hay truy cập vào những ứng dụng đó");
+                                Helper::redirect("admin", "index", "index");
                             }
                         } else {
                             if ($pageLogin == false) {
-                                header("Location: " . URL::createLink("admin", "index", "login"));
-                                exit();
+                                Helper::redirect("admin", "index", "login");
                             }
                         }
                     } else {
                         Session::deleteSession("user");
                         if ($pageLogin == false) {
-                            header("Location: " . URL::createLink("admin", "index", "login"));
-                            exit();
+                            Helper::redirect("admin", "index", "login");
                         }
                     }
                 } else {
                     if ($pageLogin == false) {
-                        header("Location: " . URL::createLink("admin", "index", "login"));
-                        exit();
+                        Helper::redirect("admin", "index", "login");
                     }
                 }
             } else if ($module == "default") {
+                // KIỂM TRA LOGIN DEFAULT
                 $arrRouteNeedAuth = array(
                     array("controller" => "user", "action" => "index"),
-                    array("controller" => "cart", "action" => "list"),
-                    array("controller" => "cart", "action" => "inc"),
-                    array("controller" => "cart", "action" => "dec"),
-                    array("controller" => "cart", "action" => "del"),
                 );
 
-                $page = array("controller" => $this->_params['controller'], "action" => $this->_params['action']);
-                if (empty(Session::getSession("user")) && in_array($page, $arrRouteNeedAuth)) {
-                    header("Location: " . URL::createLink("default", "index", "login"));
-                    exit();
+                $page = array("controller" => $controller, "action" => $action);
+                // Tồn tại session("user") không cho người dùng quay lại trang login nữa
+                if (!empty(Session::getSession("user"))) {
+                    if ($controller == "index" && $action  == "login") {
+                        Helper::redirect("default", "index", "index");
+                    }
+                } else if (empty(Session::getSession("user")) && in_array($page, $arrRouteNeedAuth) == true) {
+                    Helper::redirect("default", "index", "login");
                 }
             }
             $this->_controllerObj->$actionName();

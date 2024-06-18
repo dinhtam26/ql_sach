@@ -13,11 +13,25 @@ class IndexModel extends Model
         if (!empty($arrParams['form'])) {
             $email      = $arrParams['form']['email'];
             $password   = $arrParams['form']['password'];
-            $query = "SELECT `u`.`id`, `u`.`username`, `u`.`email`, `g`.`group_acp`, `u`.`status`, `u`.`fullname`, `u`.`group_id`
+            $query = "SELECT `u`.`id`, `u`.`username`, `u`.`email`, `g`.`group_acp`, `u`.`status`, `u`.`fullname`, `u`.`group_id`, `g`.privilege_id, `g`.name
                   FROM `user` AS `u` LEFT JOIN `grouper` AS `g` ON `u`.group_id = `g`.id  
                   WHERE `email` = '$email'
                   AND `password` = '$password' ";
             $result = $this->singleRecord($query);
+
+            $privilege_id = explode(",", $result['privilege_id']);
+            $privilege = '';
+            foreach ($privilege_id as $key => $value) {
+                $privilege .=  "'$value', ";
+            }
+            $privilege  = rtrim($privilege, ", ");
+
+            $sql = "SELECT `id`, CONCAT(`module`,'-', `controller`, '-' ,`action`) AS `name` FROM `privilege` WHERE `id` IN($privilege)";
+            $result['privilege'] = $this->listRecord($sql);
+            $result['privilege'] = array_column($result['privilege'], "name", "id");
+
+
+
             return $result;
         }
     }

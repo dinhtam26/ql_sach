@@ -11,7 +11,7 @@ define("TEMPLATE_PATH", PUBLIC_PATH .  "Template" . DS);
 
 // Định nghĩa URL mặc định
 define("DEFAULT_MODULE", "default");
-define("DEFAULT_CONTROLLER", "user");
+define("DEFAULT_CONTROLLER", "index");
 define("DEFAULT_ACTION", "index");
 
 // Định nghĩa các đường dẫn tương đối 

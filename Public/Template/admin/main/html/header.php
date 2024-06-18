@@ -8,9 +8,12 @@ $linkGroupManage    = URL::createLink("admin", "group", "index");
 $linkAddGroup       = URL::createLink("admin", "group", "add");
 $linkLogout         = URL::createLink("admin", "index", "logout");
 $linkView           = URL::createLink("default", "index", "index");
+
+$userInfo = Session::getSession("user");
 ?>
 <div id="border-top" class="h_blue">
-    <span class="title"><a href="<?= $linkAdmin ?>">Administration</a></span>
+    <span class="title"><a href="<?= $linkAdmin ?>">Administration (<?= $userInfo['info']['name'] ?>)</a></span>
+
 </div>
 
 

@@ -84,4 +84,10 @@ class Helper
         $xhtml .= '</select>';
         return $xhtml;
     }
+
+    public static function redirect($module, $controller, $action, $params = null)
+    {
+        header("Location: " . URL::createLink($module, $controller, $action, $params));
+        exit();
+    }
 }
