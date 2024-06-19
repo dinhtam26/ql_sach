@@ -1,7 +1,4 @@
 <?php
-// echo "<pre/>";
-// print_r($this);
-// echo "<pre/>";
 // New
 $linkNew = URL::createLink("admin", "user", "add");
 $btnNew = Helper::cmsButton("New", "toolbar-popup-new", $linkNew, "icon-32-new");
@@ -11,12 +8,12 @@ $linkEdit = URL::createLink("admin", "user", "edit", array("id" => ($this->_arrP
 $btnEdit = Helper::cmsButton("Edit", "toolbar-edit", $linkEdit, "icon-32-edit", "submit");
 
 // Public
-$linkPublic = URL::createLink("admin", "user", "status", array("type" => 1));
-$btnPublic  = Helper::cmsButton("Public", "toolbar-publish", $linkPublic, "icon-32-publish", "submit");
+// $linkPublic = URL::createLink("admin", "user", "status", array("type" => 1));
+// $btnPublic  = Helper::cmsButton("Public", "toolbar-publish", $linkPublic, "icon-32-publish", "submit");
 
 // Unpublic
-$linkUnPublic = URL::createLink("admin", "user", "status", array("type" => 0));
-$btnUnPublic  = Helper::cmsButton("Unpublic", "toolbar-unpublish", $linkUnPublic, "icon-32-unpublish", "submit");
+// $linkUnPublic = URL::createLink("admin", "user", "status", array("type" => 0));
+// $btnUnPublic  = Helper::cmsButton("Unpublic", "toolbar-unpublish", $linkUnPublic, "icon-32-unpublish", "submit");
 
 // Trash
 $linkTrash = URL::createLink("admin", "user", "deleteAll");
@@ -36,25 +33,3 @@ $btnSaveClose   = Helper::cmsButton("Save & Close", "toolbar-save", $linkSaveClo
 // Cancel
 $linkCancel = URL::createLink("admin", "user", "index");
 $btnCancel   = Helper::cmsButton("Cancel", "toolbar-cancel", $linkCancel, "icon-32-cancel");
-
-switch ($this->_arrParams['action']) {
-    case 'index':
-        $strButton = $btnNew .  $btnPublic . $btnUnPublic . $btnTrash;
-        break;
-    case 'add':
-        $strButton = $btnSave .  $btnCancel;
-        break;
-    case 'edit':
-        $strButton = $btnEdit . $btnCancel;
-        break;
-}
-
-?>
-<div class="toolbar-list" id="toolbar">
-    <ul>
-        <?php
-        echo $strButton;
-        ?>
-    </ul>
-    <div class="clr"></div>
-</div>

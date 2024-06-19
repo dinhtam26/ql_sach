@@ -167,6 +167,12 @@ $(document).ready(function () {
             $(this).removeClass("error").addClass("hidden");
         });
     }, 3000);
+
+    // Active Menu
+    const urlParams = new URLSearchParams(window.location.search);
+    const controller = urlParams.get("controller") ? urlParams.get("controller") : "index";
+    console.log(controller);
+    $("#submenu li a." + controller).addClass("active");
 });
 
 function changStatusUser(url) {

@@ -6,9 +6,26 @@ $linkCateManage     = URL::createLink("admin", "category", "index");
 $linkGroupManage    = URL::createLink("admin", "group", "index");
 $linkUserManage     = URL::createLink("admin", "user", "index");
 
+// MESSAGE PERMISSION
+$messagePer = Session::getSession("permission");
+Session::deleteSession("permission");
+$strMess  = '';
+if (!empty($messagePer)) {
 
+    $strMess .= '<dl id="system-message">
+                    <dt class="error">Error</dt>
+                    <dd class="error message">
+                        <ul>
+                            <li>' . $messagePer . '</li>
+                        </ul>
+                    </dd>
+                </dl>';
+}
 ?>
 <div id="content-box">
+    <div id="system-message-container">
+        <?= $strMess ?>
+    </div>
     <div id="element-box">
         <div id="system-message-container"></div>
         <div class="m">

@@ -64,12 +64,12 @@ class Bootstrap
                             }
 
                             // Phân quyền
-                            $privilege = "$module-$controller-$action";
-                            if (in_array($privilege, $userInfo['info']['privilege'])) {
-                            } else {
-                                // Session::setSession("permission", "Bạn không có quyền thực hiện hay truy cập vào những ứng dụng đó");
-                                Helper::redirect("admin", "index", "index");
-                            }
+                            // $privilege = "$module-$controller-$action";
+                            // if (in_array($privilege, $userInfo['info']['privilege'])) {
+                            // } else {
+                            //     Session::setSession("permission", "Bạn không có quyền thực hiện hay truy cập vào những ứng dụng đó");
+                            //     Helper::redirect("admin", "index", "index");
+                            // }
                         } else {
                             if ($pageLogin == false) {
                                 Helper::redirect("admin", "index", "login");

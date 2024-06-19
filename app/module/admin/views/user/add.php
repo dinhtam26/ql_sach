@@ -26,17 +26,7 @@ if (!empty($this->errors)) {
                     </dl>';
 }
 ?>
-<div id="toolbar-box">
-    <div class="m">
-        <!-- TOOLBAR -->
-        <?php include_once "toolbar/index.php" ?>
-        <!-- TITLE -->
-        <div class="pagetitle icon-48-groups">
-            <h2><?= $this->_title ?></h2>
-        </div>
-    </div>
-</div>
-<?php include_once "submenu/index.php" ?>
+
 <!-- THÔNG BÁO LỖI -->
 <div id="system-message-container ">
     <?= $strMessage ?>

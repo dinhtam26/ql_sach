@@ -5,17 +5,7 @@ $status     =   Helper::cmsSelectBox("form[status]", "", $arrStatus, $this->data
 $arrGroup_acp  =   array("default" => "- Select Status -", "0" => "No", "1" => "Yes");
 $group_acp     =   Helper::cmsSelectBox("form[group_acp]", "", $arrGroup_acp, $this->data['group_acp']);
 ?>
-<div id="toolbar-box">
-    <div class="m">
-        <!-- TOOLBAR -->
-        <?php include_once "toolbar/index.php" ?>
-        <!-- TITLE -->
-        <div class="pagetitle icon-48-groups">
-            <h2><?= $this->_title ?></h2>
-        </div>
-    </div>
-</div>
-<?php include_once "submenu/index.php" ?>
+
 <!-- THÔNG BÁO LỖI -->
 <div id="system-message-container">
 

@@ -14,7 +14,7 @@ class GroupController extends Controller
 
     public function indexAction()
     {
-        $this->_view->_title    = "UserManage - UserGroup";
+        $this->_view->_title    = "Group User";
         // DS Items group
         $this->_view->data      = $this->_model->listItem($this->_arrParams, $this->_pagination);
         // Total items group

@@ -31,21 +31,7 @@ if (!empty($message)) {
                 </dl>';
 }
 
-// MESSAGE PERMISSION
-$messagePer = Session::getSession("permission");
-Session::deleteSession("permission");
-$strMess  = '';
-if (!empty($messagePer)) {
 
-    $strMess .= '<dl id="system-message">
-                    <dt class="error">Error</dt>
-                    <dd class="error message">
-                        <ul>
-                            <li>' . $messagePer . '</li>
-                        </ul>
-                    </dd>
-                </dl>';
-}
 $columnPost = $this->_arrParams['filter_column'] ?? "id";
 $orderPost  = $this->_arrParams['filter_column_asc'] ?? "desc";
 
@@ -65,18 +51,7 @@ $GroupName      = Helper::linkSort("GroupName", "group_id", $columnPost, $orderP
 
 
 ?>
-<div id="toolbar-box">
-    <div class="m">
-        <!-- TOOLBAR -->
-        <?php include_once "toolbar/index.php" ?>
-        <!-- TITLE -->
-        <div class="pagetitle icon-48-groups">
-            <h2><?= $this->_title ?></h2>
-        </div>
-    </div>
-</div>
 
-<?php include_once "submenu/index.php" ?>
 <div id="dialog-confirm" title="Thông báo" style="display: none">
     <p> Bạn có chắc muốn xóa không</p>
 </div>

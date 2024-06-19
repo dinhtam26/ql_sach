@@ -1,12 +1,11 @@
 <?php
-
 // New
-$linkNew    = URL::createLink("admin", "user", "add");
-$btnNew     = Helper::cmsButton("New", "toolbar-popup-new", $linkNew, "icon-32-new");
+$linkNew = URL::createLink("admin", "user", "add");
+$btnNew = Helper::cmsButton("New", "toolbar-popup-new", $linkNew, "icon-32-new");
 
 // Edit
-$linkEdit   = URL::createLink("admin", "user", "edit", array("id" => ($this->_arrParams['id'] ?? "")));
-$btnEdit    = Helper::cmsButton("Edit", "toolbar-edit", $linkEdit, "icon-32-edit", "submit");
+$linkEdit = URL::createLink("admin", "user", "edit", array("id" => ($this->_arrParams['id'] ?? "")));
+$btnEdit = Helper::cmsButton("Edit", "toolbar-edit", $linkEdit, "icon-32-edit", "submit");
 
 // Public
 $linkPublic = URL::createLink("admin", "user", "status", array("type" => 1));
@@ -34,31 +33,3 @@ $btnSaveClose   = Helper::cmsButton("Save & Close", "toolbar-save", $linkSaveClo
 // Cancel
 $linkCancel = URL::createLink("admin", "user", "index");
 $btnCancel   = Helper::cmsButton("Cancel", "toolbar-cancel", $linkCancel, "icon-32-cancel");
-
-// Edit Profile
-$linkEditProfile    = URL::createLink("admin", "index", "editProfile", array("id" => ($this->userInfo['id'] ?? "")));
-$btnEditProfile          = Helper::cmsButton("Edit Profile", "toolbar-edit", $linkEditProfile, "icon-32-edit", "submit");
-switch ($this->_arrParams['action']) {
-    case 'index':
-        $strButton = $btnNew .  $btnPublic . $btnUnPublic . $btnTrash;
-        break;
-    case 'add':
-        $strButton = $btnSave .  $btnCancel;
-        break;
-    case 'edit':
-        $strButton = $btnEdit . $btnCancel;
-        break;
-    case 'profile':
-        $strButton = $btnEditProfile . $btnCancel;
-        break;
-}
-
-?>
-<div class="toolbar-list" id="toolbar">
-    <ul>
-        <?php
-        echo $strButton;
-        ?>
-    </ul>
-    <div class="clr"></div>
-</div>
