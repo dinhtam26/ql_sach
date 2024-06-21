@@ -129,7 +129,7 @@ if (!empty($message)) {
                                 </td>
                                 <td class="center"><a href="#"><?= $id ?></a></td>
                                 <td class="center"><a href="#"><?= $name ?></a></td>
-                                <td class="center"><a href="#"><img src="" alt=""></a></td>
+                                <td class="center"><a href="#"><img width="60px" src="<?= UPLOAD_URL ?>category/<?= $image ?>" alt=""></a></td>
                                 <td class="center"><?= $created ?></td>
                                 <td class="center"><?= $created_by ?></td>
                                 <td class="center"><?= $modified ?></td>
@@ -176,7 +176,3 @@ if (!empty($message)) {
         <div class="clr"></div>
     </div>
 </div>
-<?php
-echo "<pre/>";
-print_r($this);
-echo "<pre/>";

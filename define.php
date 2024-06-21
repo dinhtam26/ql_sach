@@ -8,6 +8,8 @@ define("MODULE_PATH", APPLICATION_PATH . "module" . DS);
 define("PUBLIC_PATH", ROOT_PATH . DS . "Public" . DS);
 define("LIBS_PATH", ROOT_PATH . DS . "Libs" . DS);
 define("TEMPLATE_PATH", PUBLIC_PATH .  "Template" . DS);
+define("UPLOAD_PATH", PUBLIC_PATH .  "filesUpload" . DS);
+
 
 // Định nghĩa URL mặc định
 define("DEFAULT_MODULE", "default");
@@ -19,6 +21,7 @@ define("ROOT_URL", "\PHP_Zend\BookStore" . DS);
 define("APP_URL", ROOT_URL . "app" . DS);
 define("PUBLIC_URL", ROOT_URL  . "Public" . DS);
 define("TEMPLATE_URL", PUBLIC_URL . "Template" . DS);
+define("UPLOAD_URL", PUBLIC_URL . "filesUpload" . DS);
 // Định nghĩa kết nối với database
 define("DB_HOST", "localhost");
 define("DB_USER", "root");

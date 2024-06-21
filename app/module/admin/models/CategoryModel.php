@@ -133,4 +133,29 @@ class CategoryModel extends Model
             Session::setSession('message', array('class' => "error", "content" => 'Vui lòng chọn vào phần tử muốn xóa'));
         }
     }
+
+    // ADD CATEGORY 
+    public function addCate($arrParams)
+    {
+        $userInfo    = Session::getSession("user");
+        $idUser      = $userInfo['info']['id'];
+        $data        = array_intersect_key($arrParams['form'], array_flip($this->_column));
+        $dirFile     = UPLOAD_PATH . 'category/';
+        $imagePath   = time() . basename($data['image']['name']);
+        if (move_uploaded_file($data['image']['tmp_name'], $dirFile . $imagePath)) {
+            $data['image'] = $imagePath;
+        }
+        $data['created_by'] = $idUser;
+        $data['created']    = date("Y-m-d", time());
+        // Kiểm tra xem có trùng tên với database không 
+        $nameBook = $data['name'];
+        $sql = "SELECT `id` FROM `$this->table` WHERE `name` = '$nameBook'";
+        $result = $this->singleRecord($sql);
+        if (!empty($result)) {
+            Session::setSession('message', array("class" => "error", "content" => "Tên sách này đã tồn tại"));
+        } else {
+            $this->insert($data);
+            Session::setSession('message', array("class" => "success", "content" => "Thêm mới thành công "));
+        }
+    }
 }

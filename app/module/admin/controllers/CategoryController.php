@@ -62,6 +62,29 @@ class CategoryController extends Controller
 
         $this->_view->_title = "Add Category";
 
+        if (!empty($_FILES)) {
+            $this->_arrParams['form']['image'] = $_FILES['image'];
+        }
+
+        if (!empty($this->_arrParams['form'])) {
+
+            $validate = new Validate($this->_arrParams['form']);
+
+            $validate->addRule("name", "string", array("min" => 2, "max" => 50))
+                ->addRule("ordering", "int", array("min" => 1, "max" => 100))
+                ->addRule("status", "status")
+                ->addRule("image", "file", array("min" => 1024, "max" => 5240880, "extension" => array("png", "jpg", "jpeg")), false);
+            $validate->run();
+
+            if ($validate->isValid() == false) {
+                $this->_view->error = $validate->getErrors();
+            } else {
+                $this->_view->data['form'] = $validate->getResult();
+                $this->_model->addCate($this->_arrParams);
+
+                Helper::redirect("admin", "category", "index");
+            }
+        }
         $this->_view->render("category/add");
     }
 }
