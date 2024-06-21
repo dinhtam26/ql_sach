@@ -147,7 +147,7 @@ $GroupName      = Helper::linkSort("GroupName", "group_id", $columnPost, $orderP
                             $groupName  = $value['group_name'];
 
                             $linkDelete = URL::createLink("admin", "user", "delete", array("id" => $id));
-                            $delete = 'javascript:deleteUser(\' ' . $linkDelete . ' \', ' . $id . ')';
+                            $delete = 'javascript:deleteItem(\' ' . $linkDelete . ' \', ' . $id . ')';
                             $linkUpdate = URL::createLink("admin", "user", "edit", array("id" => $id));
                     ?>
                             <tr class="row0" id="item-<?= $id ?>">

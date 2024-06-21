@@ -33,6 +33,7 @@ function changGroup(url) {
 
 // AJAX STATUS
 function changStatus(url) {
+    console.log(url);
     $.get(
         url,
         function (data, status) {
@@ -125,27 +126,12 @@ $(document).ready(function () {
 
     // Thay đổi ordering
     $(".text-area-order").change(function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const controller = urlParams.get("controller") ? urlParams.get("controller") : "index";
         let current = $(this);
         let value = $(this).val();
         let id = $(this).attr("id");
-        let url = "index.php?module=admin&controller=group&action=ajaxOrder";
-        $.ajax({
-            type: "GET",
-            url: url,
-            data: { id: id, value: value, type: "changeOrder" },
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-                current.notify("Cập nhật thành công", { position: "top", className: data.class, arrowSize: 10 });
-            },
-        });
-    });
-
-    $(".text-area-order").change(function () {
-        let current = $(this);
-        let value = $(this).val();
-        let id = $(this).attr("id");
-        let url = "index.php?module=admin&controller=user&action=ajaxOrder";
+        let url = "index.php?module=admin&controller=" + controller + "&action=ajaxOrder";
         $.ajax({
             type: "GET",
             url: url,
@@ -171,7 +157,6 @@ $(document).ready(function () {
     // Active Menu
     const urlParams = new URLSearchParams(window.location.search);
     const controller = urlParams.get("controller") ? urlParams.get("controller") : "index";
-    console.log(controller);
     $("#submenu li a." + controller).addClass("active");
 });
 
@@ -208,7 +193,7 @@ function changStatusUser(url) {
     });
 }
 
-function deleteUser(url, id) {
+function deleteItem(url, id) {
     console.log(url);
     console.log(id);
     $(function () {

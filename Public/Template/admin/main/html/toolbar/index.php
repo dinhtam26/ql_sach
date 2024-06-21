@@ -32,10 +32,10 @@ switch ($this->_arrParams['controller']) {
         }
         break;
     case 'category':
-        require_once "toolbarGroup.php";
+        require_once "toolbarCate.php";
         switch ($this->_arrParams['action']) {
             case 'index':
-                $strButton = $btnNew  . $btnTrash;
+                $strButton = $btnNew  . $btnPublic . $btnUnPublic . $btnTrash;
                 break;
             case 'add':
                 $strButton = $btnSave .  $btnCancel;
