@@ -212,17 +212,20 @@ class Validate
 
 	public function validateFile($element, $options)
 	{
-		if (isset($this->sources[$element]) && $this->sources[$element]['error'] == 0) {
+		// echo "<pre/>";
+		// print_r($this->sources[$element]);
+		// echo "<pre/>";
+		if (isset($this->sources[$element]) && $this->sources[$element]['name'] != null) {
 			if (!filter_var($this->sources[$element]['size'], FILTER_VALIDATE_INT, ["options" => ["min_range" => $options['min'], "max_range" => $options['max']]])) {
 				$this->setError($element, " kick thước không phù hợp");
 			}
 
-			echo $ext = strtolower(pathinfo($this->sources[$element]['name'], PATHINFO_EXTENSION));
+			$ext = strtolower(pathinfo($this->sources[$element]['name'], PATHINFO_EXTENSION));
 
 			if (!in_array($ext, $options['extension'])) {
 				$this->setError($element, " Phần mở rộng không phù hợp");
 			}
-		} else {
+		} else if ($options['update'] != true) {
 			$this->setError($element, " Không được để trống");
 		}
 	}

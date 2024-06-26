@@ -90,4 +90,7 @@ class Helper
         header("Location: " . URL::createLink($module, $controller, $action, $params));
         exit();
     }
+
+    // Lấy thông tin đăng nhập từ người dùng 
+    // public static function get 
 }

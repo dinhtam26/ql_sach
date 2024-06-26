@@ -175,4 +175,3 @@ if (!empty($message)) {
 
         <div class="clr"></div>
     </div>
-</div>

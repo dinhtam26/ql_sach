@@ -114,8 +114,19 @@ class CategoryModel extends Model
     // DELETE CATEGORY 
     public function deleteCategory($arrParams)
     {
+        require_once LIBS_PATH . "upload/Upload.php";
+        $uploadObj = new Upload();
         if (!empty($arrParams['id']) && $arrParams['type'] == "deleteUser") {
             $ids = $arrParams['id'];
+
+            // Lấy tên hình ảnh để xóa
+            $sql = "SELECT `image` FROM `$this->table` WHERE `id` IN($ids)";
+            $listImg = $this->singleRecord($sql);
+            foreach ($listImg as $value) {
+                $uploadObj->deleteFileUpload("category", $value);
+            }
+
+            // Thực hiện xóa theo id
             $sql = "DELETE FROM `$this->table` WHERE `id` IN($ids)";
             $this->query($sql);
         }
@@ -124,8 +135,20 @@ class CategoryModel extends Model
     // DELETE CATEGORY BY CHECK BOX 
     public function deleteAllCate($arrParams)
     {
+        require_once LIBS_PATH . "upload/Upload.php";
+        $uploadObj = new Upload();
         if (!empty($arrParams['checkbox'])) {
             $ids    = $this->createWhereDeleteSql($arrParams['checkbox']);
+
+            // Lấy tên hình ảnh để xóa
+            $sql = "SELECT `image` FROM `$this->table` WHERE `id` IN($ids)";
+            $listImg = $this->listRecord($sql);
+            $listImg = array_column($listImg, "image");
+            foreach ($listImg as $value) {
+                $uploadObj->deleteFileUpload("category", $value);
+            }
+
+            // Xóa các cột theo id
             $sql    = "DELETE FROM `$this->table` WHERE `id` IN($ids) ";
             $this->query($sql);
             Session::setSession('message', array('class' => "success", "content" => 'Bạn đã xóa thành công'));
@@ -137,14 +160,15 @@ class CategoryModel extends Model
     // ADD CATEGORY 
     public function addCate($arrParams)
     {
+        require_once LIBS_PATH . "upload/Upload.php";
+        $uploadObj = new Upload();
+
         $userInfo    = Session::getSession("user");
         $idUser      = $userInfo['info']['id'];
+
         $data        = array_intersect_key($arrParams['form'], array_flip($this->_column));
-        $dirFile     = UPLOAD_PATH . 'category/';
-        $imagePath   = time() . basename($data['image']['name']);
-        if (move_uploaded_file($data['image']['tmp_name'], $dirFile . $imagePath)) {
-            $data['image'] = $imagePath;
-        }
+
+
         $data['created_by'] = $idUser;
         $data['created']    = date("Y-m-d", time());
         // Kiểm tra xem có trùng tên với database không 
@@ -154,8 +178,43 @@ class CategoryModel extends Model
         if (!empty($result)) {
             Session::setSession('message', array("class" => "error", "content" => "Tên sách này đã tồn tại"));
         } else {
+            $data['image'] = $uploadObj->uploadFile($arrParams['form']['image'], "category");
             $this->insert($data);
             Session::setSession('message', array("class" => "success", "content" => "Thêm mới thành công "));
         }
+    }
+
+    // GET CATEGORY BY ID
+    public function InfoItem($arrParams)
+    {
+        $id     = $arrParams['id'];
+        $sql    = "SELECT `id`, `name`, `image`, `status`, `ordering` 
+                   FROM `$this->table` 
+                   WHERE `id` = '$id' ";
+        $result = $this->singleRecord($sql);
+        return $result;
+    }
+
+    // EDIT CATE
+    public function editCate($arrParams)
+    {
+
+        require_once LIBS_PATH . "upload/Upload.php";
+        $uploadObj = new Upload();
+        $userInfo   = Session::getSession("user");
+        $idUser     = $userInfo['info']['id'];
+        $data        = array_intersect_key($arrParams['form'], array_flip($this->_column));
+
+        if ($data['image']['name'] == null) {
+            unset($data['image']);
+        } else {
+            $uploadObj->deleteFileUpload("category", $arrParams['form']['image_hidden']);
+            $data['image'] = $uploadObj->uploadFile($arrParams['form']['image'], "category");
+        }
+        $data['modified']       = date("Y-m-d", time());
+        $data['modified_by']    = $idUser;
+        $ids = [['id',  $arrParams['id']]];
+        $this->update($data, $ids);
+        Session::setSession('message', array("class" => "success", "content" => "Update thành công"));
     }
 }

@@ -9,6 +9,8 @@ define("PUBLIC_PATH", ROOT_PATH . DS . "Public" . DS);
 define("LIBS_PATH", ROOT_PATH . DS . "Libs" . DS);
 define("TEMPLATE_PATH", PUBLIC_PATH .  "Template" . DS);
 define("UPLOAD_PATH", PUBLIC_PATH .  "filesUpload" . DS);
+define("SCRIPT_PATH", PUBLIC_PATH .  "script" . DS);
+
 
 
 // Định nghĩa URL mặc định
