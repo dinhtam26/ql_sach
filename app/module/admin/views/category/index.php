@@ -129,7 +129,7 @@ if (!empty($message)) {
                                 </td>
                                 <td class="center"><a href="#"><?= $id ?></a></td>
                                 <td class="center"><a href="#"><?= $name ?></a></td>
-                                <td class="center"><a href="#"><img width="60px" src="<?= UPLOAD_URL ?>category/<?= $image ?>" alt=""></a></td>
+                                <td class="center"><a href="#"><img style="object-fit: cover;" width="60px" height="90px" src="<?= UPLOAD_URL ?>category/<?= $image ?>" alt=""></a></td>
                                 <td class="center"><?= $created ?></td>
                                 <td class="center"><?= $created_by ?></td>
                                 <td class="center"><?= $modified ?></td>

@@ -12,7 +12,7 @@ class Controller
     protected $_arrParams;
     // Pagination  
     protected $_pagination = array(
-        "totalItemPerPage" => 5,
+        "totalItemPerPage" => 9,
         "pageRange" => 3,
     );
 

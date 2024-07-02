@@ -15,3 +15,9 @@ $(document).ready(function () {
     var controllerAction = controller + "-" + action;
     $("#menu ul li." + controllerAction).addClass("selected");
 });
+
+// Submit Pagination
+function changePage(page) {
+    $("input[name=filter_pagination]").val(page);
+    $("#adminForm").submit();
+}

@@ -33,7 +33,7 @@ function changGroup(url) {
 
 // AJAX STATUS
 function changStatus(url) {
-    console.log(url);
+    // console.log(url);
     $.get(
         url,
         function (data, status) {
@@ -119,8 +119,12 @@ $(document).ready(function () {
     });
 
     // Lọc theo giá trị group
-
     $("#filter-bar select[name='filter_group']").change(function () {
+        $("#adminForm").submit();
+    });
+
+    // Lọc theo giá trị category
+    $("#filter-bar select[name='filter_category']").change(function () {
         $("#adminForm").submit();
     });
 

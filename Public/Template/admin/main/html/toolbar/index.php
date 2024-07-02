@@ -45,6 +45,23 @@ switch ($this->_arrParams['controller']) {
                 break;
         }
         break;
+    case 'book':
+        require_once "toolbarBook.php";
+        switch ($this->_arrParams['action']) {
+            case 'index':
+                $strButton = $btnNew  . $btnPublic . $btnUnPublic . $btnTrash;
+                break;
+            case 'add':
+                $strButton = $btnSave .  $btnCancel;
+                break;
+            case 'edit':
+                $strButton = $btnEdit . $btnCancel;
+                break;
+            case 'detail':
+                $strButton = $btnCancel;
+                break;
+        }
+        break;
 }
 ?>
 <div class="toolbar-list" id="toolbar">

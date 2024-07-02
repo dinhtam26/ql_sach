@@ -57,11 +57,11 @@ class Helper
         $img = '';
         $order = ($orderPost == 'desc') ? 'asc' : 'desc';
         if ($column == $columnPost) {
-            $img = '<img width="10px" height="10px" scr="/PHP_Zend/BookStore/Public/Template/admin/main/images/admin/sort_' . $orderPost . '.png" alt="">';
+            $img = '<img width="10px" height="10px" scr="' . TEMPLATE_URL . 'admin\main\images/admin/sort_' . $orderPost . '.png" alt="">';
         }
         $xhtml = '<a href="#" onclick="javascript:sortList(\'' . $column . '\', \'' . $order . '\')">
                     <span>' . $name . '</span>
-                    ' . $img . '
+                    ' .  $img . '
                   </a>';
         return $xhtml;
     }
@@ -91,6 +91,14 @@ class Helper
         exit();
     }
 
-    // Lấy thông tin đăng nhập từ người dùng 
-    // public static function get 
+    // LÀM NGẮN GỌN CHUỖI VỚI ...
+    public static function truncateString($str, $maxChar = 30, $holder = "...")
+    {
+        $result = $str;
+        if (mb_strlen($str, "UTF-8") > $maxChar) {
+            $result = substr($str, 0, $maxChar);
+            $result .= $holder;
+        }
+        return $result;
+    }
 }

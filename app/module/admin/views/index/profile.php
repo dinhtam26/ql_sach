@@ -15,16 +15,7 @@ if (!empty($message)) {
                 </dl>';
 }
 ?>
-<div id="toolbar-box">
-    <div class="m">
-        <!-- TOOLBAR -->
-        <?php include_once "toolbar/index.php" ?>
-        <!-- TITLE -->
-        <div class="pagetitle icon-48-groups">
-            <h2><?= $this->_title ?></h2>
-        </div>
-    </div>
-</div>
+
 
 <div id="system-message-container">
     <?= $strMess ?>

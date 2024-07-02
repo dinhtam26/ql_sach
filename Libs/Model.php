@@ -99,7 +99,7 @@ class Model
         $newQuery = "";
         if (!empty($data)) {
             foreach ($data as $key => $value) {
-                $newQuery .=  ", $key = '$value'";
+                $newQuery .=  ", `$key` = '$value'";
             }
             $newQuery = substr($newQuery, 2);
             return $newQuery;
@@ -112,7 +112,7 @@ class Model
         $newQuery = $this->createUpdate($data);
         $newQueryWhere = $this->createWhereUpdateSql($where);
 
-        $sql = "UPDATE $this->table SET $newQuery
+        $sql = "UPDATE `$this->table` SET $newQuery
                WHERE $newQueryWhere";
 
         $this->query($sql);
@@ -132,6 +132,8 @@ class Model
 
             $newWhere = implode(" ", $newWhere);
         }
+
+
         return $newWhere;
     }
 
